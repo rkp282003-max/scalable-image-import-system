@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h2>Import Images</h2>
+
+<input id="url" placeholder="Google Drive Folder URL">
+<button onclick="importImages()">Import</button>
+
+<ul id="list"></ul>
+
+<script>
+function importImages() {
+ fetch('/api/import/google-drive', {
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({folder_url:document.getElementById('url').value})
+ })
+}
+
+fetch('/api/images')
+.then(res=>res.json())
+.then(data=>{
+ data.forEach(i=>{
+   document.getElementById('list').innerHTML += `<li>${i.name}</li>`
+ })
+})
+</script>
+</body>
+</html>
